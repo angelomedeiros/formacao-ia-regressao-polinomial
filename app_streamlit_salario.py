@@ -18,3 +18,10 @@ input_features = {
     'nivel_na_empresa': nivel_na_empresa
 }
 
+# Criar botão para fazer a predição
+if st.button('Prever salário'):
+    # Enviar dados para a API
+    response = requests.post('http://localhost:8000/predict_salario', json=input_features)
+    response_json = json.loads(response.text)
+    salario_em_reais = round(response_json['salario_em_reais'], 2)
+    st.subheader(f'Salário previsto: R$ {salario_em_reais}')
